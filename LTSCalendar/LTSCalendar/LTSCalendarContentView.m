@@ -189,15 +189,17 @@
     
     if ([LTSCalendarAppearance share].isShowSingleWeek) {
         self.currentSelectedIndexPath = indexPath;
-       self.currentDate = itemCurrent.date;
+        self.currentDate = itemCurrent.date;
     }else{
         self.currentSelectedIndexPath = [NSIndexPath indexPathForItem:(comps.weekOfMonth-1)*7+index inSection:round(NUMBER_PAGES_LOADED / 2)];
         touchMonthIndex = touchMonthIndex % 12;
         
         if(touchMonthIndex == (currentMonth + 1) % 12){
+            _currentDate = itemCurrent.date;
             [self loadNextPage];
         }
         else if(touchMonthIndex == (currentMonth + 12 - 1) % 12){
+             _currentDate = itemCurrent.date;
             [self loadPreviousPage];
         }else{
             self.currentDate = itemCurrent.date;
