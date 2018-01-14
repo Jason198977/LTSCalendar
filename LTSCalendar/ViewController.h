@@ -6,8 +6,8 @@
 //  Copyright © 2016年 leetangsong. All rights reserved.
 //
 
-#import "LTSCalendarBaseViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface ViewController : LTSCalendarBaseViewController
+@interface ViewController : UIViewController
 
 @end

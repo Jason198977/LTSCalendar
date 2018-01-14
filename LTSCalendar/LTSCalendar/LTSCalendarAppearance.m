@@ -7,9 +7,19 @@
 //  日历外观样式
 
 #import "LTSCalendarAppearance.h"
-#import "LTSCalendarManager.h"
 
 @implementation LTSCalendarAppearance
+
+
++ (instancetype)share{
+    static dispatch_once_t onceToken;
+    static LTSCalendarAppearance *appearance;
+    dispatch_once(&onceToken, ^{
+        appearance = [LTSCalendarAppearance new];
+    });
+    return  appearance;
+}
+
 
 - (instancetype)init
 {
@@ -30,9 +40,10 @@
     self.weekDayFormat = LTSCalendarWeekDayFormatSingle;
     self.weekDayTextFont = [UIFont systemFontOfSize:11];
      self.weekDayTextColor = [UIColor colorWithRed:200./256. green:200./256. blue:200./256. alpha:1.];
-    
+    self.weeksToDisplay = 6;
     self.weekDayHeight = 50;
-    
+    self.isShowSingleWeek = NO;
+    self.firstWeekday = 1;
     self.dayTextFont = [UIFont systemFontOfSize:16];
     self.lunarDayTextFont =[UIFont systemFontOfSize:10];
     
@@ -40,8 +51,8 @@
     [self setDayTextColorForAll:[UIColor whiteColor]];
     
    
-    self.dayTextColor = [UIColor whiteColor];
-    self.lunarDayTextColor = [UIColor whiteColor];
+    self.dayTextColor = [UIColor blackColor];
+    self.lunarDayTextColor = [UIColor colorWithRed:152./256. green:147./256. blue:157./256. alpha:1.];;
     
     self.dayTextColorOtherMonth  = [UIColor colorWithRed:152./256. green:147./256. blue:157./256. alpha:1.];
     self.lunarDayTextColorOtherMonth = [UIColor colorWithRed:152./256. green:147./256. blue:157./256. alpha:1.];
@@ -54,13 +65,13 @@
     self.dayCircleColorSelected  = [UIColor colorWithRed:133./256. green:205./256. blue:243./256. alpha:1.];
     
     self.dayTextColorToday = [UIColor whiteColor];
-    self.dayDotColor = [UIColor whiteColor];
+    self.dayDotColor = [UIColor redColor];
   
-    self.dayDotColorSelected = [UIColor whiteColor];
     
     
-    
-    self.backgroundColor = [UIColor grayColor];
+    self.weekDayBgColor = [UIColor whiteColor];
+    self.calendarBgColor = [UIColor whiteColor];
+    self.scrollBgcolor = [UIColor colorWithRed:241/255.0 green:241/255.0 blue:241/255.0 alpha:1];
     self.isShowLunarCalender = YES;
 }
 

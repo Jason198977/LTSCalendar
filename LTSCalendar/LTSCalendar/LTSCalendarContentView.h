@@ -2,34 +2,33 @@
 //  LTSCalendarContentView.h
 //  LTSCalendar
 //
-//  Created by leetangsong_macbk on 16/5/24.
-//  Copyright © 2016年 leetangsong. All rights reserved.
-//  日历容器
+//  Created by 李棠松 on 2018/1/9.
+//  Copyright © 2018年 leetangsong. All rights reserved.
+//
 
 #import <UIKit/UIKit.h>
+#import "LTSCalendarAppearance.h"
+#import "LTSCalendarCollectionViewFlowLayout.h"
+#import "LTSCalendarEventSource.h"
+@interface LTSCalendarContentView : UIView
 
-@class  LTSCalendarManager;
+@property (nonatomic,strong) LTSCalendarCollectionViewFlowLayout *flowLayout;
 
-@interface LTSCalendarContentView : UIScrollView
-@property (nonatomic,strong)NSMutableArray *monthsViews; 
+@property (nonatomic,strong) UICollectionView *collectionView;
+//遮罩
+@property (nonatomic,strong)UIView *maskView;
+//事件代理
+@property (weak, nonatomic) id<LTSCalendarEventSource> eventSource;
 
-@property (weak, nonatomic) LTSCalendarManager *calendarManager;
-
-
-
-@property (strong, nonatomic) NSDate *currentDate;
-
-/// 重新加载数据
-- (void)reloadData;
-/// 重新加载外观
+@property (nonatomic,strong)NSDate *currentDate;
+///滚动到单周需要的offset
+@property (nonatomic,assign)CGFloat singleWeekOffsetY;
+- (void)setSingleWeek:(BOOL)singleWeek;
+///下一页
+- (void)getDateDatas;
+- (void)loadNextPage;
+- (void)loadPreviousPage;
 - (void)reloadAppearance;
-
-/// 将序号为多少的WeekView 放到SelectedWeekView 的里面
-- (void)sendSubviewToSelectedWeekViewWithIndex:(NSInteger)index;
-
-/// 将序号为多少的WeekView 放到回到monthView 的里面
-- (void)sendSubviewToMonthViewWithIndex:(NSInteger)index;
-
-- (void)setWeekViewHidden:(BOOL)hidden toIndex:(NSInteger)index;
-
+///更新遮罩镂空的位置 
+- (void)setUpVisualRegion;
 @end

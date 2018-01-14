@@ -22,10 +22,20 @@ typedef NS_ENUM(NSInteger, LTSCalendarWeekDayFormat) {
 @property (nonatomic,assign) NSInteger firstWeekday;
 ///是否显示日历
 @property (nonatomic,assign) BOOL isShowLunarCalender;
+
+
 ///每一周视图的高度
 @property (nonatomic,assign)CGFloat weekDayHeight;
+///每个月显示多少周
+@property (nonatomic,assign)NSInteger weeksToDisplay;
 
-
+@property (nonatomic,assign)BOOL isShowSingleWeek;
+///日历背景颜色
+@property (nonatomic,strong)UIColor *calendarBgColor;
+///星期view背景颜色
+@property (nonatomic,strong) UIColor *weekDayBgColor;
+///滚动试图背景颜色
+@property (nonatomic,strong) UIColor *scrollBgcolor;
 ///  阳历字体大小
 @property (nonatomic,strong)UIFont *dayTextFont;
 
@@ -64,10 +74,9 @@ typedef NS_ENUM(NSInteger, LTSCalendarWeekDayFormat) {
 ///  今天外圈圆的颜色
 @property (strong, nonatomic) UIColor *dayBorderColorToday;
 
-/// 有事件 点 的颜色
+/// 有事件 点的默认颜色
 @property (nonatomic,strong) UIColor *dayDotColor;
-/// 有事件点 选择后的颜色
-@property (nonatomic,strong)UIColor  *dayDotColorSelected;
+
 
 
 ///  日期实心圆的大小
@@ -83,8 +92,9 @@ typedef NS_ENUM(NSInteger, LTSCalendarWeekDayFormat) {
 /// 周  标识  字体大小
 @property (strong, nonatomic) UIFont *weekDayTextFont;
 
-@property (nonatomic,strong) UIColor *backgroundColor;
 
+
++ (instancetype)share;
 - (NSCalendar *)calendar;
 - (NSCalendar *)chineseCalendar;
 

@@ -7,7 +7,7 @@
 //
 
 #import "LTSCalendarWeekDayView.h"
-#import "LTSCalendarManager.h"
+#import "LTSCalendarAppearance.h"
 
 @implementation LTSCalendarWeekDayView
 
@@ -20,14 +20,11 @@ static NSArray *cacheDaysOfWeeks;
         return nil;
     }
     
-   
+   [self commonInit];
     
     return self;
 }
-- (void)setCalendarManager:(LTSCalendarManager *)calendarManager{
-    _calendarManager = calendarManager;
-     [self commonInit];
-}
+
 
 
 - (void)commonInit
@@ -37,8 +34,8 @@ static NSArray *cacheDaysOfWeeks;
     for(NSString *day in [self daysOfWeek]){
         UILabel *view = [UILabel new];
         
-        view.font = self.calendarManager.calendarAppearance.weekDayTextFont;
-        view.textColor = self.calendarManager.calendarAppearance.weekDayTextColor;
+        view.font = [LTSCalendarAppearance share].weekDayTextFont;
+        view.textColor = [LTSCalendarAppearance share].weekDayTextColor;
         
         view.textAlignment = NSTextAlignmentCenter;
         view.text = day;
@@ -54,9 +51,10 @@ static NSArray *cacheDaysOfWeeks;
     }
     
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
     NSMutableArray *days = nil;
     
-    switch(self.calendarManager.calendarAppearance.weekDayFormat) {
+    switch([LTSCalendarAppearance share].weekDayFormat) {
         case LTSCalendarWeekDayFormatSingle:
             days = [[dateFormatter veryShortStandaloneWeekdaySymbols] mutableCopy];
             break;
@@ -75,7 +73,7 @@ static NSArray *cacheDaysOfWeeks;
     
     // Redorder days for be conform to calendar
     {
-        NSCalendar *calendar = self.calendarManager.calendarAppearance.calendar;
+        NSCalendar *calendar = [LTSCalendarAppearance share].calendar;
         NSUInteger firstWeekday = (calendar.firstWeekday + 6) % 7; // Sunday == 1, Saturday == 7
         
         for(int i = 0; i < firstWeekday; ++i){
@@ -118,12 +116,12 @@ static NSArray *cacheDaysOfWeeks;
         
     }
     [self commonInit];
-    self.backgroundColor = self.calendarManager.calendarAppearance.backgroundColor;
+    self.backgroundColor = [LTSCalendarAppearance share].weekDayBgColor;
     for(int i = 0; i < self.subviews.count; ++i){
         UILabel *view = [self.subviews objectAtIndex:i];
         
-        view.font = self.calendarManager.calendarAppearance.weekDayTextFont;
-        view.textColor = self.calendarManager.calendarAppearance.weekDayTextColor;
+        view.font = [LTSCalendarAppearance share].weekDayTextFont;
+        view.textColor = [LTSCalendarAppearance share].weekDayTextColor;
         
         view.text = [[self daysOfWeek] objectAtIndex:i];
     }
