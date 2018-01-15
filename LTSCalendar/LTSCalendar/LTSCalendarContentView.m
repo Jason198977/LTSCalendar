@@ -90,7 +90,7 @@
     UIView *maskView = [[UIView alloc] initWithFrame:self.bounds];
     maskView.backgroundColor = [LTSCalendarAppearance share].calendarBgColor;
     maskView.alpha = 0;
-    maskView.hidden = true;
+    maskView.userInteractionEnabled = false;
     self.maskView = maskView;
     [self addSubview:maskView];
     

@@ -91,11 +91,9 @@
     
     CGRect calendarFrame = self.calendarView.frame;
     self.calendarView.maskView.alpha = offsetY/tableCountDistance;
-    self.calendarView.maskView.hidden = false;
     calendarFrame.origin.y = offsetY-offsetY*scale;
     if(ABS(offsetY) >= tableCountDistance) {
          self.tableView.scrollEnabled = true;
-        self.calendarView.maskView.hidden = true;
         //为了使滑动更加顺滑，这部操作根据 手指的操作去设置
 //         [self.calendarView setSingleWeek:true];
         
