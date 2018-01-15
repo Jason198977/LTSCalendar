@@ -30,6 +30,13 @@
     [self.calenderScrollView.calendarView reloadAppearance];
 }
 
+- (void)showSingleWeek{
+    [self.calenderScrollView scrollToSingleWeek];
+}
+- (void)showAllWeek{
+    [self.calenderScrollView scrollToAllWeek];
+}
+
 ///  前一页。上个月
 - (void)loadPreviousPage{
     [self.calenderScrollView.calendarView loadPreviousPage];

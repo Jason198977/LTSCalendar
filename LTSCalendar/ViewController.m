@@ -39,16 +39,23 @@
     
     
 }
-- (IBAction)goBackToday:(id)sender {
-    [self.manager goBackToday];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     
     [self lts_InitUI];
-  
+    
+}
+- (IBAction)goBackToday:(id)sender {
+    [self.manager goBackToday];
+}
+
+
+- (IBAction)allweek:(id)sender {
+    [self.manager showAllWeek];
+}
+- (IBAction)singleweek:(id)sender {
+    [self.manager showSingleWeek];
 }
 - (void)lts_InitUI{
 

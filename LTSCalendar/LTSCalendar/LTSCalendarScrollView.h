@@ -14,4 +14,7 @@
 @property (nonatomic,strong)LTSCalendarContentView *calendarView;
 
 @property (nonatomic,strong)UIColor *bgColor;
+- (void)scrollToSingleWeek;
+
+- (void)scrollToAllWeek;
 @end

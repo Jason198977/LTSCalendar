@@ -30,5 +30,6 @@
 ///   下一页 下一个月
 
 - (void)loadNextPage;
-
+- (void)showSingleWeek;
+- (void)showAllWeek;
 @end
