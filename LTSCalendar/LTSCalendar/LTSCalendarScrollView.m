@@ -100,8 +100,10 @@
 //         [self.calendarView setSingleWeek:true];
         
     }else{
+        
         self.tableView.scrollEnabled = false;
         if ([LTSCalendarAppearance share].isShowSingleWeek) {
+           
             [self.calendarView setSingleWeek:false];
         }
     }

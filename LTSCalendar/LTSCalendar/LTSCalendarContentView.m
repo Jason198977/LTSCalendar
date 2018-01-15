@@ -104,6 +104,7 @@
 //    self.flowLayout.rowCount = singleWeek ? 1:[LTSCalendarAppearance share].weeksToDisplay;
 //   self.collectionView.contentInset = UIEdgeInsetsMake(0, 0,(singleWeek ? appearance.weekDayHeight*(appearance.weeksToDisplay-1) : 0), 0);
     beginWeekIndexPath = nil;
+ 
     [self getDateDatas];
     [self.collectionView reloadData];
     
@@ -179,7 +180,8 @@
     NSInteger currentMonth = [self monthIndexForDate:self.currentDate];
     
     if (touchMonthIndex == currentMonth || [LTSCalendarAppearance share].isShowSingleWeek) {
-        [collectionView reloadItemsAtIndexPaths:@[self.currentSelectedIndexPath]];
+        LTSCalendarCollectionCell *lastCell = (LTSCalendarCollectionCell*)[collectionView cellForItemAtIndexPath:self.currentSelectedIndexPath];
+        lastCell.isSelected = false;
     }
     
     NSInteger index = comps.weekday-[LTSCalendarAppearance share].calendar.firstWeekday%7;
@@ -303,6 +305,7 @@
         }
         
         self.daysInMonth = daysInMonths;
+         NSLog(@"%@",daysInMonths);
     }
     
     
