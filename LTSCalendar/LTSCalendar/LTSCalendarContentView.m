@@ -305,7 +305,7 @@
         }
         
         self.daysInMonth = daysInMonths;
-         NSLog(@"%@",daysInMonths);
+        
     }
     
     
