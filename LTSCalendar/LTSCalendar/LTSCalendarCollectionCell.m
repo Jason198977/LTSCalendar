@@ -212,7 +212,9 @@
             lunarTextLabel.textColor = [LTSCalendarAppearance share].lunarDayTextColorSelected;
             
         }
-        
+        if ([self isToday]) {
+             circleView.color = [LTSCalendarAppearance share].dayCircleColorToday;
+        }
         circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
         tr = CGAffineTransformIdentity;
     }else {
@@ -220,7 +222,6 @@
         if ([self isToday]){
             
             circleView.layer.borderColor = [LTSCalendarAppearance share].dayBorderColorToday.CGColor;
-            
             
             
             textLabel.textColor = [LTSCalendarAppearance share].dayTextColor;

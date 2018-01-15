@@ -63,7 +63,7 @@
     
     self.dayBorderColorToday = [UIColor colorWithRed:133./256. green:205./256. blue:243./256. alpha:1.];
     self.dayCircleColorSelected  = [UIColor colorWithRed:133./256. green:205./256. blue:243./256. alpha:1.];
-    
+    self.dayCircleColorToday = [UIColor colorWithRed:133./256. green:205./256. blue:243./256. alpha:1.];
     self.dayTextColorToday = [UIColor whiteColor];
     self.dayDotColor = [UIColor redColor];
   

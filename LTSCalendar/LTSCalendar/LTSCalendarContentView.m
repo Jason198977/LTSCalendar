@@ -52,7 +52,9 @@
 - (void)setEventSource:(id<LTSCalendarEventSource>)eventSource{
     _eventSource = eventSource;
     [self updatePageWithNewDate:NO];
-    [self.collectionView reloadData];
+    [UIView performWithoutAnimation:^{
+        [self.collectionView reloadData];
+    }];
 }
 
 - (void)initUI
@@ -106,7 +108,9 @@
     beginWeekIndexPath = nil;
  
     [self getDateDatas];
-    [self.collectionView reloadData];
+    [UIView performWithoutAnimation:^{
+        [self.collectionView reloadData];
+    }];
     
 }
 
@@ -217,7 +221,9 @@
 {
     
    [self updatePageWithNewDate:!isOwnChangePage];
-   [self.collectionView reloadData];
+    [UIView performWithoutAnimation:^{
+        [self.collectionView reloadData];
+    }];
 
     if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidLoadPageCurrentDate:)]) {
         [self.eventSource calendarDidLoadPageCurrentDate:self.currentDate];
@@ -244,7 +250,9 @@
         return;
     };
     [self updatePageWithNewDate:YES];
-    [self.collectionView reloadData];
+    [UIView performWithoutAnimation:^{
+        [self.collectionView reloadData];
+    }];
     if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidLoadPageCurrentDate:)]) {
         [self.eventSource calendarDidLoadPageCurrentDate:self.currentDate];
     }
@@ -258,7 +266,9 @@
     self.backgroundColor = [LTSCalendarAppearance share].calendarBgColor;
     self.maskView.backgroundColor = self.backgroundColor;
     [self getDateDatas];
-    [self.collectionView reloadData];
+    [UIView performWithoutAnimation:^{
+        [self.collectionView reloadData];
+    }];
 }
 
 - (void)getDateDatas{
