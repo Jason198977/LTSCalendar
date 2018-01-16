@@ -10,13 +10,12 @@
 #import "LTSCalendarScrollView.h"
 #import "LTSCalendarEventSource.h"
 @interface LTSCalendarManager : NSObject
-@property (nonatomic,strong)LTSCalendarScrollView *calenderScrollView;
+@property (nonatomic,strong) LTSCalendarScrollView *calenderScrollView;
 
 @property (nonatomic,strong) LTSCalendarWeekDayView *weekDayView;
 
 @property (weak, nonatomic) id<LTSCalendarEventSource> eventSource;
 
-@property (nonatomic,strong) NSDate *currentSelectedDate;
 @property (nonatomic,strong,readonly) NSDate *currentSelectedDate;
 
 
