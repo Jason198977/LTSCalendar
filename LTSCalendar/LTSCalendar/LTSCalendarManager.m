@@ -28,7 +28,7 @@
 /// 重新加载外观和数据
 - (void)reloadAppearanceAndData{
     [self.weekDayView reloadAppearance];
-    [self.calenderScrollView.calendarView goBackToday];
+    [self.calenderScrollView.calendarView reloadAppearance];
 }
 
 - (void)showSingleWeek{
