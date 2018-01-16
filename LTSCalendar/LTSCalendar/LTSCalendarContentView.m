@@ -151,6 +151,7 @@
 #pragma mark -- UICollectionViewDelegate --
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     isOwnChangePage = false;
+    beginWeekIndexPath = indexPath;
     LTSCalendarCollectionCell *cell = (LTSCalendarCollectionCell*)[collectionView cellForItemAtIndexPath:indexPath];
     cell.isSelected = true;
     LTSCalendarDayItem *itemCurrent;
@@ -265,6 +266,19 @@
 
 #pragma mark -- Function --
 
+- (void)goBackToday{
+    beginWeekIndexPath = nil;
+    [self getDateDatas];
+    [UIView performWithoutAnimation:^{
+        [self.collectionView reloadData];
+    }];
+    
+}
+
+- (void)reloadDefaultDate{
+    _currentDate = nil;
+}
+
 - (void)reloadAppearance{
     self.backgroundColor = [LTSCalendarAppearance share].calendarBgColor;
     self.maskView.backgroundColor = self.backgroundColor;
@@ -279,7 +293,7 @@
     
    
     if (self.currentDate == nil) {
-        self.currentDate = [NSDate date];
+        self.currentDate = [LTSCalendarAppearance share].defaultDate;
     }
     
     if ([LTSCalendarAppearance share].isShowSingleWeek) {
@@ -476,15 +490,18 @@
         item.date = currentDate;
         if ([self isEqual:currentDate other:self.currentDate]) {
             item.isSelected = YES;
+           
             self.currentSelectedIndexPath = [NSIndexPath indexPathForItem:(comps.weekOfMonth-1)*7+i inSection:round(NUMBER_PAGES_LOADED / 2)];
             
             if ([LTSCalendarAppearance share].isShowSingleWeek) {
                 if (beginWeekIndexPath) {
-                    self.currentSelectedIndexPath = [NSIndexPath indexPathForRow:beginWeekIndexPath.row/7*7 inSection:round(NUMBER_PAGES_LOADED / 2)];
+                    NSInteger row = beginWeekIndexPath.row/7*7;
+                    if ([self isEqual:currentDate other:[LTSCalendarAppearance share].defaultDate]) {
+                        row += i;
+                    }
+                    self.currentSelectedIndexPath = [NSIndexPath indexPathForRow:row inSection:round(NUMBER_PAGES_LOADED / 2)];
                 }
-                if (beginWeekIndexPath == nil) {
-                    beginWeekIndexPath = self.currentSelectedIndexPath;
-                }
+                beginWeekIndexPath = self.currentSelectedIndexPath;
             }
            
             

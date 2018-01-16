@@ -16,11 +16,11 @@
 
 @property (weak, nonatomic) id<LTSCalendarEventSource> eventSource;
 
-@property (nonatomic,strong , readonly) NSDate *currentSelectedDate;
+@property (nonatomic,strong) NSDate *currentSelectedDate;
 
 
-///回到今天
-- (void)goBackToday;
+///回到固定某天
+- (void)goToDate:(NSDate *)date;
 
 /// 重新加载外观
 - (void)reloadAppearanceAndData;

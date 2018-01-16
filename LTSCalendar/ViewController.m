@@ -47,7 +47,7 @@
     
 }
 - (IBAction)goBackToday:(id)sender {
-    [self.manager goBackToday];
+    [self.manager goToDate:[NSDate date]];
 }
 
 

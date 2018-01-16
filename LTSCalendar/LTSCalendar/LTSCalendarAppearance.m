@@ -44,6 +44,7 @@
     self.weekDayHeight = 50;
     self.isShowSingleWeek = NO;
     self.firstWeekday = 1;
+    self.defaultDate = [NSDate date];
     self.dayTextFont = [UIFont systemFontOfSize:16];
     self.lunarDayTextFont =[UIFont systemFontOfSize:10];
     
