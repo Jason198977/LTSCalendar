@@ -31,4 +31,5 @@
 - (void)reloadAppearance;
 ///更新遮罩镂空的位置 
 - (void)setUpVisualRegion;
+- (void)goBackToday;
 @end

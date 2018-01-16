@@ -150,7 +150,7 @@
 
 #pragma mark -- UICollectionViewDelegate --
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    isOwnChangePage = true;
+    isOwnChangePage = false;
     LTSCalendarCollectionCell *cell = (LTSCalendarCollectionCell*)[collectionView cellForItemAtIndexPath:indexPath];
     cell.isSelected = true;
     LTSCalendarDayItem *itemCurrent;
@@ -202,10 +202,12 @@
         
         if(touchMonthIndex == (currentMonth + 1) % 12){
             _currentDate = itemCurrent.date;
+             isOwnChangePage = true;
             [self loadNextPage];
         }
         else if(touchMonthIndex == (currentMonth + 12 - 1) % 12){
              _currentDate = itemCurrent.date;
+            isOwnChangePage = true;
             [self loadPreviousPage];
         }else{
             self.currentDate = itemCurrent.date;
@@ -256,6 +258,7 @@
     if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidLoadPageCurrentDate:)]) {
         [self.eventSource calendarDidLoadPageCurrentDate:self.currentDate];
     }
+    
 }
 
 
@@ -401,6 +404,7 @@
         [self.eventSource calendarDidSelectedDate:self.currentDate];
     }
 }
+
 /**
  *  返回该日期月数第一周开始的第一天
  *
