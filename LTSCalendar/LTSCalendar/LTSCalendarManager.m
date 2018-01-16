@@ -9,7 +9,6 @@
 #import "LTSCalendarManager.h"
 
 @implementation LTSCalendarManager
-@synthesize currentSelectedDate = _currentSelectedDate;
 - (void)setCalenderScrollView:(LTSCalendarScrollView *)calenderScrollView{
     _calenderScrollView = calenderScrollView;
     calenderScrollView.calendarView.eventSource = self.eventSource;
@@ -51,9 +50,5 @@
 - (NSDate *)currentSelectedDate{
     return self.calenderScrollView.calendarView.currentDate;
 }
-- (void)setCurrentSelectedDate:(NSDate *)currentSelectedDate{
-    _currentSelectedDate = currentSelectedDate;
-    self.calenderScrollView.calendarView.currentDate = currentSelectedDate;
-    [self.calenderScrollView.calendarView reloadAppearance ];
-}
+
 @end

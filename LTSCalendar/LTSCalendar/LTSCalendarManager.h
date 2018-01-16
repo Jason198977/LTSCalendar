@@ -17,6 +17,7 @@
 @property (weak, nonatomic) id<LTSCalendarEventSource> eventSource;
 
 @property (nonatomic,strong) NSDate *currentSelectedDate;
+@property (nonatomic,strong,readonly) NSDate *currentSelectedDate;
 
 
 ///回到固定某天
