@@ -499,6 +499,9 @@
                     if ([self isEqual:currentDate other:[LTSCalendarAppearance share].defaultDate]) {
                         row += i;
                     }
+//                    if ([LTSCalendarAppearance share].weeksToDisplay == 1) {
+//                        
+//                    }
                     self.currentSelectedIndexPath = [NSIndexPath indexPathForRow:row inSection:round(NUMBER_PAGES_LOADED / 2)];
                 }
                 beginWeekIndexPath = self.currentSelectedIndexPath;

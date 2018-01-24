@@ -119,7 +119,6 @@
     
     
     
-    
 }
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
     LTSCalendarAppearance *appearce =  [LTSCalendarAppearance share];
@@ -139,7 +138,9 @@
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-    
+    if (self != scrollView) {
+        return;
+    }
     LTSCalendarAppearance *appearce =  [LTSCalendarAppearance share];
     CGFloat tableCountDistance = appearce.weekDayHeight*(appearce.weeksToDisplay-1);
 
@@ -203,6 +204,9 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    if (self != scrollView) {
+        return;
+    }
      [self.calendarView setUpVisualRegion];
 }
 
