@@ -151,6 +151,7 @@
 #pragma mark -- UICollectionViewDelegate --
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     isOwnChangePage = false;
+    
     beginWeekIndexPath = indexPath;
     LTSCalendarCollectionCell *cell = (LTSCalendarCollectionCell*)[collectionView cellForItemAtIndexPath:indexPath];
     cell.isSelected = true;
@@ -171,6 +172,7 @@
         itemCurrent = dataSource[indexPath.section][indexPath.item];
         itemLast = dataSource[self.currentSelectedIndexPath.section][self.currentSelectedIndexPath.item];
     }
+    
     if (itemLast == itemCurrent) {
         return;
     }
@@ -214,7 +216,7 @@
             self.currentDate = itemCurrent.date;
         }
     }
-    
+    [self setUpVisualRegion];
     
 }
 #pragma mark -- UIScrollView --

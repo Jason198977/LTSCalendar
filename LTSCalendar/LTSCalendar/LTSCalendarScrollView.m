@@ -33,7 +33,7 @@
     self.bounces = false;
     self.showsVerticalScrollIndicator = false;
     self.backgroundColor = [LTSCalendarAppearance share].scrollBgcolor;
-    LTSCalendarContentView *calendarView = [[LTSCalendarContentView alloc]initWithFrame:CGRectMake(0, 0, 375, [LTSCalendarAppearance share].weekDayHeight*[LTSCalendarAppearance share].weeksToDisplay)];
+    LTSCalendarContentView *calendarView = [[LTSCalendarContentView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, [LTSCalendarAppearance share].weekDayHeight*[LTSCalendarAppearance share].weeksToDisplay)];
     calendarView.currentDate = [NSDate date];
     [self addSubview:calendarView];
     self.calendarView = calendarView;
