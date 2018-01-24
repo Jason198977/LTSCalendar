@@ -216,7 +216,10 @@
             self.currentDate = itemCurrent.date;
         }
     }
-    [self setUpVisualRegion];
+    if (![LTSCalendarAppearance share].isShowSingleWeek){
+        [self setUpVisualRegion];
+    }
+    
     
 }
 #pragma mark -- UIScrollView --
