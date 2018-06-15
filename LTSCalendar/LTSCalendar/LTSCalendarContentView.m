@@ -28,7 +28,8 @@
 @property (nonatomic,strong)NSArray *daysInMonth;
 @property (nonatomic,strong)NSArray *daysInWeeks;
 @property (nonatomic,strong)NSIndexPath *currentSelectedIndexPath;
-//@property (nonatomic,st)
+///用来区分默认效果选中的日期
+@property (nonatomic,strong)NSDate *selectedDate;
 @end
 
 @implementation LTSCalendarContentView
@@ -52,6 +53,9 @@
 - (void)setEventSource:(id<LTSCalendarEventSource>)eventSource{
     _eventSource = eventSource;
     [self updatePageWithNewDate:NO];
+    if (![LTSCalendarAppearance share].defaultSelected) {
+        self.selectedDate = self.selectedDate;
+    }
     [UIView performWithoutAnimation:^{
         [self.collectionView reloadData];
     }];
@@ -144,6 +148,14 @@
     if ([LTSCalendarAppearance share].isShowSingleWeek) {
         item = self.daysInWeeks[indexPath.section][indexPath.row%7];
     }
+    if (![LTSCalendarAppearance share].defaultSelected) {
+        if (item.isSelected) {
+            item.isSelected = [self isEqual:self.currentDate other:self.selectedDate];
+        }
+        if ([self isEqual:item.date other:self.selectedDate]) {
+            item.isSelected = YES;
+        }
+    }
     cell.item = item;
     return cell;
 }
@@ -219,7 +231,7 @@
     if (![LTSCalendarAppearance share].isShowSingleWeek){
         [self setUpVisualRegion];
     }
-    
+    self.selectedDate = itemCurrent.date;
     
 }
 #pragma mark -- UIScrollView --
@@ -235,6 +247,11 @@
 
     if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidLoadPageCurrentDate:)]) {
         [self.eventSource calendarDidLoadPageCurrentDate:self.currentDate];
+    }
+    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:)]) {
+        NSCalendar *calendar = [LTSCalendarAppearance share].calendar;
+        NSDateComponents *comps = [calendar components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.currentDate];
+        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month];
     }
     isOwnChangePage = false;
     
@@ -264,6 +281,12 @@
     if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidLoadPageCurrentDate:)]) {
         [self.eventSource calendarDidLoadPageCurrentDate:self.currentDate];
     }
+    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:)]) {
+        NSCalendar *calendar = [LTSCalendarAppearance share].calendar;
+        NSDateComponents *comps = [calendar components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.currentDate];
+        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month];
+    }
+    
     
 }
 
@@ -299,6 +322,7 @@
    
     if (self.currentDate == nil) {
         self.currentDate = [LTSCalendarAppearance share].defaultDate;
+        self.selectedDate = self.currentDate;
     }
     
     if ([LTSCalendarAppearance share].isShowSingleWeek) {
@@ -371,6 +395,14 @@
     //获取该周第一天
     if ([LTSCalendarAppearance share].isShowSingleWeek) {
          currentDate = [self beginningOfWeek:currentDate];
+        
+        NSInteger firstWeekday = [LTSCalendarAppearance share].firstWeekday%7;
+        NSInteger singWeekDefaultSelectedIndex = [LTSCalendarAppearance share].singWeekDefaultSelectedIndex%7;
+        NSInteger dif = singWeekDefaultSelectedIndex-firstWeekday;
+        if (dif<0){
+            dif += 7;
+        }
+        currentDate = [currentDate dateByAddingTimeInterval:dif*3600*24];
     }
     if (!isNew) {
         currentDate = self.currentDate;
@@ -419,11 +451,21 @@
 }
 - (void)setCurrentDate:(NSDate *)currentDate{
     _currentDate = currentDate;
-    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidSelectedDate:)]) {
-        [self.eventSource calendarDidSelectedDate:self.currentDate];
+    if ([LTSCalendarAppearance share].defaultSelected) {
+        if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidSelectedDate:)]) {
+            [self.eventSource calendarDidSelectedDate:self.currentDate];
+        }
     }
 }
-
+- (void)setSelectedDate:(NSDate *)selectedDate{
+    _selectedDate = selectedDate;
+    if (![LTSCalendarAppearance share].defaultSelected) {
+        if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidSelectedDate:)]) {
+            [self.eventSource calendarDidSelectedDate:selectedDate];
+        }
+    }
+    
+}
 /**
  *  返回该日期月数第一周开始的第一天
  *
@@ -496,20 +538,20 @@
         if ([self isEqual:currentDate other:self.currentDate]) {
             item.isSelected = YES;
            
-            self.currentSelectedIndexPath = [NSIndexPath indexPathForItem:(comps.weekOfMonth-1)*7+i inSection:round(NUMBER_PAGES_LOADED / 2)];
+            if ([LTSCalendarAppearance share].defaultSelected || !self.currentSelectedIndexPath) {
+                self.currentSelectedIndexPath = [NSIndexPath indexPathForItem:(comps.weekOfMonth-1)*7+i inSection:round(NUMBER_PAGES_LOADED / 2)];
+            }
             
             if ([LTSCalendarAppearance share].isShowSingleWeek) {
                 if (beginWeekIndexPath) {
-                    NSInteger row = beginWeekIndexPath.row/7*7;
-                    if ([self isEqual:currentDate other:[LTSCalendarAppearance share].defaultDate]) {
-                        row += i;
+                    NSInteger row = (beginWeekIndexPath.item/7)*7+i;
+                    if ([LTSCalendarAppearance share].defaultSelected  || !self.currentSelectedIndexPath) {
+                        self.currentSelectedIndexPath = [NSIndexPath indexPathForRow:row inSection:round(NUMBER_PAGES_LOADED / 2)];
                     }
-//                    if ([LTSCalendarAppearance share].weeksToDisplay == 1) {
-//                        
-//                    }
-                    self.currentSelectedIndexPath = [NSIndexPath indexPathForRow:row inSection:round(NUMBER_PAGES_LOADED / 2)];
+                }else{
+                    beginWeekIndexPath = self.currentSelectedIndexPath;
                 }
-                beginWeekIndexPath = self.currentSelectedIndexPath;
+                
             }
            
             

@@ -69,7 +69,10 @@
     [self.view addSubview:self.manager.calenderScrollView];
     [self createRandomEvents];
     self.automaticallyAdjustsScrollViewInsets = false;
-    
+    //设置默认滑动选中
+    //[LTSCalendarAppearance share].defaultSelected = true;
+    //设置显示单周时滑动默认选中星期几
+    //[LTSCalendarAppearance share].singWeekDefaultSelectedIndex = 2;
 }
 
 // 该日期是否有事件
@@ -96,7 +99,9 @@
     }
 }
 
-
+- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month{
+    NSLog(@"当前年份：%d,当前月份：%d",year,month);
+}
 
 
 - (IBAction)isShowLunar:(id)sender {

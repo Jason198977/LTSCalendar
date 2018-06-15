@@ -22,7 +22,8 @@ typedef NS_ENUM(NSInteger, LTSCalendarWeekDayFormat) {
 @property (nonatomic,assign) NSInteger firstWeekday;
 ///是否显示日历
 @property (nonatomic,assign) BOOL isShowLunarCalender;
-
+///当显示为单周时 滚动周默认选中星期几   1 代表星期天 2代表星期一 default = 1
+@property (nonatomic,assign) NSInteger singWeekDefaultSelectedIndex;
 
 ///每一周视图的高度
 @property (nonatomic,assign)CGFloat weekDayHeight;
@@ -93,7 +94,8 @@ typedef NS_ENUM(NSInteger, LTSCalendarWeekDayFormat) {
 /// 周  标识  字体大小
 @property (strong, nonatomic) UIFont *weekDayTextFont;
 
-
+///是否支持 默认选中效果
+@property (nonatomic,assign) BOOL defaultSelected;
 
 + (instancetype)share;
 - (NSCalendar *)calendar;

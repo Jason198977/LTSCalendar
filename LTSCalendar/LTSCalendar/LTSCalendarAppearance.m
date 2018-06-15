@@ -45,6 +45,7 @@
     self.isShowSingleWeek = true;
     self.firstWeekday = 1;
     self.defaultDate = [NSDate date];
+    self.singWeekDefaultSelectedIndex = 2;
     self.dayTextFont = [UIFont systemFontOfSize:16];
     self.lunarDayTextFont =[UIFont systemFontOfSize:10];
     
@@ -68,7 +69,7 @@
     self.dayTextColorToday = [UIColor whiteColor];
     self.dayDotColor = [UIColor redColor];
   
-    
+    self.defaultSelected = YES;
     
     self.weekDayBgColor = [UIColor whiteColor];
     self.calendarBgColor = [UIColor whiteColor];

@@ -26,7 +26,8 @@
  */
 - (void)calendarDidSelectedDate:(NSDate *)date;
 
-
+//获取当前滑动的年月
+- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month;
 /**
  翻页完成后的操作
 
