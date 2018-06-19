@@ -120,6 +120,12 @@
 
 ///获取当前选中的frame
 - (CGRect)obtainVisualFrame{
+    
+    NSDate *date = self.currentDate;
+    if (![LTSCalendarAppearance share].defaultSelected) {
+        date = self.selectedDate;
+    }
+    
     return CGRectMake(0 , ([self weekOfMonthWithDate:self.currentDate]-1)*[LTSCalendarAppearance share].weekDayHeight, CGRectGetWidth(self.frame), [LTSCalendarAppearance share].weekDayHeight);
 }
 //设置可见的区域
@@ -228,10 +234,11 @@
             self.currentDate = itemCurrent.date;
         }
     }
+    self.selectedDate = itemCurrent.date;
     if (![LTSCalendarAppearance share].isShowSingleWeek){
         [self setUpVisualRegion];
     }
-    self.selectedDate = itemCurrent.date;
+    
     
 }
 #pragma mark -- UIScrollView --
@@ -447,7 +454,9 @@
 }
 
 - (CGFloat)singleWeekOffsetY{
-    return  self.currentSelectedIndexPath.row/7*[LTSCalendarAppearance share].weekDayHeight;
+    NSCalendar *calendar = [LTSCalendarAppearance share].calendar;
+    NSDateComponents *comps = [calendar components:NSCalendarUnitWeekOfMonth fromDate:self.currentDate];
+    return  (comps.weekOfMonth-1)*[LTSCalendarAppearance share].weekDayHeight;
 }
 - (void)setCurrentDate:(NSDate *)currentDate{
     _currentDate = currentDate;
