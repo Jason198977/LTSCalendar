@@ -312,6 +312,8 @@
 
 - (void)reloadDefaultDate{
     _currentDate = nil;
+     beginWeekIndexPath = nil;
+    self.currentSelectedIndexPath = nil;
 }
 
 - (void)reloadAppearance{
