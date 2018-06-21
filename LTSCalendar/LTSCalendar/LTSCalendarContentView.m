@@ -190,12 +190,18 @@
         itemCurrent = dataSource[indexPath.section][indexPath.item];
         itemLast = dataSource[self.currentSelectedIndexPath.section][self.currentSelectedIndexPath.item];
     }
-    
-    if (itemLast == itemCurrent) {
+    NSDate *selectedDate = itemLast.date;
+    if (![LTSCalendarAppearance share].defaultSelected){
+        selectedDate = self.selectedDate;
+    }
+    if ([self isEqual:selectedDate other:itemCurrent.date]){
         return;
     }
     
-    itemLast.isSelected = NO;
+    if (itemCurrent != itemLast) {
+        itemLast.isSelected = NO;
+    }
+    
     
     NSDateComponents *comps = [[LTSCalendarAppearance share].calendar components:NSCalendarUnitMonth | NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekday fromDate:itemCurrent.date];
    
@@ -206,7 +212,7 @@
     
     if (touchMonthIndex == currentMonth || [LTSCalendarAppearance share].isShowSingleWeek) {
         LTSCalendarCollectionCell *lastCell = (LTSCalendarCollectionCell*)[collectionView cellForItemAtIndexPath:self.currentSelectedIndexPath];
-        lastCell.isSelected = false;
+        lastCell.isSelected =  itemLast.isSelected;
     }
     
     NSInteger index = comps.weekday-[LTSCalendarAppearance share].calendar.firstWeekday%7;
