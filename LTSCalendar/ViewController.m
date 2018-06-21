@@ -70,7 +70,7 @@
     [self createRandomEvents];
     self.automaticallyAdjustsScrollViewInsets = false;
     //设置默认滑动选中
-    [LTSCalendarAppearance share].defaultSelected = false;
+    //[LTSCalendarAppearance share].defaultSelected = false;
     //设置显示单周时滑动默认选中星期几
     //[LTSCalendarAppearance share].singWeekDefaultSelectedIndex = 2;
 }

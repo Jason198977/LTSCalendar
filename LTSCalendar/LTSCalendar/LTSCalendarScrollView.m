@@ -213,6 +213,7 @@
 
 - (void)scrollToSingleWeek{
     LTSCalendarAppearance *appearce =  [LTSCalendarAppearance share];
+    [self.calendarView setUpVisualRegion];
     ///表需要滑动的距离
     CGFloat tableCountDistance = appearce.weekDayHeight*(appearce.weeksToDisplay-1);
     [self setContentOffset:CGPointMake(0, tableCountDistance) animated:true];
