@@ -91,17 +91,17 @@
     ///先初始化数据
     [self getDateDatas];
     
-    UIView *maskView = [[UIView alloc] initWithFrame:self.bounds];
-    maskView.backgroundColor = [LTSCalendarAppearance share].calendarBgColor;
-    maskView.alpha = 0;
-    maskView.userInteractionEnabled = false;
-    self.maskView = maskView;
-    [self addSubview:maskView];
+//    UIView *maskView = [[UIView alloc] initWithFrame:self.bounds];
+//    maskView.backgroundColor = [LTSCalendarAppearance share].calendarBgColor;
+//    maskView.alpha = 0;
+//    maskView.userInteractionEnabled = false;
+//    self.maskView = maskView;
+//    [self addSubview:maskView];
     
-    //创建一个CAShapeLayer 图层
-    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-    //添加图层蒙板
-    maskView.layer.mask = shapeLayer;
+//    //创建一个CAShapeLayer 图层
+//    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+//    //添加图层蒙板
+//    maskView.layer.mask = shapeLayer;
     [self setUpVisualRegion];
 }
 
@@ -560,12 +560,16 @@
             }
             
             if ([LTSCalendarAppearance share].isShowSingleWeek) {
+               
                 if (beginWeekIndexPath) {
                     NSInteger row = (beginWeekIndexPath.item/7)*7+i;
                     if ([LTSCalendarAppearance share].defaultSelected  || !self.currentSelectedIndexPath) {
                         self.currentSelectedIndexPath = [NSIndexPath indexPathForRow:row inSection:round(NUMBER_PAGES_LOADED / 2)];
                     }
                 }else{
+                    NSInteger originX = self.frame.origin.y/[LTSCalendarAppearance share].weekDayHeight;
+                    NSInteger x = [LTSCalendarAppearance share].weeksToDisplay-originX-1;
+                    self.currentSelectedIndexPath = [NSIndexPath indexPathForRow:x*7+i inSection:round(NUMBER_PAGES_LOADED / 2)];
                     beginWeekIndexPath = self.currentSelectedIndexPath;
                 }
                 

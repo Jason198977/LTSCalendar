@@ -24,6 +24,10 @@
     [LTSCalendarAppearance share].defaultDate = date;
     [self.calenderScrollView.calendarView reloadDefaultDate];
     [self.calenderScrollView.calendarView reloadAppearance];
+//    if ([LTSCalendarAppearance share].isShowSingleWeek) {
+//        [self.calenderScrollView scrollToSingleWeek];
+//    }
+    
 }
 /// 重新加载外观和数据
 - (void)reloadAppearanceAndData{
