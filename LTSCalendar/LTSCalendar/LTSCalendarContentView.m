@@ -91,17 +91,17 @@
     ///先初始化数据
     [self getDateDatas];
     
-//    UIView *maskView = [[UIView alloc] initWithFrame:self.bounds];
-//    maskView.backgroundColor = [LTSCalendarAppearance share].calendarBgColor;
-//    maskView.alpha = 0;
-//    maskView.userInteractionEnabled = false;
-//    self.maskView = maskView;
-//    [self addSubview:maskView];
+    UIView *maskView = [[UIView alloc] initWithFrame:self.bounds];
+    maskView.backgroundColor = [LTSCalendarAppearance share].calendarBgColor;
+    maskView.alpha = 0;
+    maskView.userInteractionEnabled = false;
+    self.maskView = maskView;
+    [self addSubview:maskView];
     
-//    //创建一个CAShapeLayer 图层
-//    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-//    //添加图层蒙板
-//    maskView.layer.mask = shapeLayer;
+    //创建一个CAShapeLayer 图层
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    //添加图层蒙板
+    maskView.layer.mask = shapeLayer;
     [self setUpVisualRegion];
 }
 

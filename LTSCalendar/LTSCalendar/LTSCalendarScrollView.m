@@ -53,8 +53,6 @@
     self.line.backgroundColor = self.backgroundColor;
     [self addSubview:self.line];
     [LTSCalendarAppearance share].isShowSingleWeek ? [self scrollToSingleWeek]:[self scrollToAllWeek];
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.calendarView.maskView.backgroundColor = [UIColor clearColor];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -67,7 +65,6 @@
     
     UITableViewCell *cell =[UITableViewCell new];
     cell.textLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row];
-    cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
