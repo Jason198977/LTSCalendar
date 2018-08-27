@@ -184,6 +184,9 @@
     
     
     if (point.y<=0) {
+        if (appearce.isShowSingleWeek) {
+            return;
+        }
         if (scrollView.contentOffset.y>=20) {
             if (scrollView.contentOffset.y>=tableCountDistance) {
                 [self.calendarView setSingleWeek:true];
@@ -204,6 +207,9 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     if (self != scrollView) {
+        return;
+    }
+    if ([LTSCalendarAppearance share].isShowSingleWeek) {
         return;
     }
      [self.calendarView setUpVisualRegion];
