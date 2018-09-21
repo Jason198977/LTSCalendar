@@ -116,7 +116,7 @@
     }
     self.calendarView.frame = calendarFrame;
     
-    
+    [self.calendarView setUpVisualRegion];
     
 }
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
@@ -209,10 +209,6 @@
     if (self != scrollView) {
         return;
     }
-    if ([LTSCalendarAppearance share].isShowSingleWeek) {
-        return;
-    }
-     [self.calendarView setUpVisualRegion];
 }
 
 
